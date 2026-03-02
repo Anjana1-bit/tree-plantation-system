@@ -2,20 +2,21 @@
 include('../auth/session_check.php');
 include('../config/db_connect.php');
 
-if(!isset($_SESSION['role']) || $_SESSION['role'] != 'admin'){
+// Volunteer Role Protection
+if(!isset($_SESSION['role']) || $_SESSION['role'] != 'volunteer'){
     header("Location: ../auth/login.php");
     exit();
 }
 
+$volunteer_id = $_SESSION['user_id'];
+
 $query = "
-SELECT trees.*, 
-       plantation_events.event_name,
-       volunteers.name AS volunteer_name
+SELECT trees.*, plantation_events.event_name
 FROM trees
-LEFT JOIN plantation_events 
-    ON trees.event_id = plantation_events.event_id
-LEFT JOIN volunteers
-    ON trees.volunteer_id = volunteers.volunteer_id
+LEFT JOIN plantation_events
+ON trees.event_id = plantation_events.event_id
+WHERE trees.volunteer_id = $volunteer_id
+ORDER BY plantation_date DESC
 ";
 
 $result = mysqli_query($conn, $query);
@@ -25,20 +26,17 @@ include('../includes/navbar.php');
 ?>
 
 <div class="container mt-4">
-    <h2>Manage Trees</h2>
+    <h2>My Trees</h2>
 
-
-    <table class="table table-bordered table-striped">
+    <table class="table table-bordered table-striped mt-3">
         <thead class="table-dark">
             <tr>
                 <th>ID</th>
                 <th>Species</th>
                 <th>Plantation Date</th>
                 <th>Event</th>
-                <th>Volunteer</th>
                 <th>Status</th>
                 <th>Height (cm)</th>
-                <th>Actions</th>
             </tr>
         </thead>
 
@@ -49,19 +47,14 @@ include('../includes/navbar.php');
             <td><?php echo $row['species']; ?></td>
             <td><?php echo $row['plantation_date']; ?></td>
             <td><?php echo $row['event_name']; ?></td>
-            <td><?php echo $row['volunteer_name']; ?></td>
-            <td><?php echo $row['survival_status']; ?></td>
-            <td><?php echo $row['height_cm']; ?></td>
             <td>
-                <a href="edit_tree.php?id=<?php echo $row['tree_id']; ?>" 
-                   class="btn btn-sm btn-primary">Edit</a>
-
-                <a href="delete_tree.php?id=<?php echo $row['tree_id']; ?>" 
-                   class="btn btn-sm btn-danger"
-                   onclick="return confirm('Are you sure?');">
-                   Delete
-                </a>
+                <?php if($row['survival_status'] == 'Alive'): ?>
+                    <span class="text-success">Alive</span>
+                <?php else: ?>
+                    <span class="text-danger">Dead</span>
+                <?php endif; ?>
             </td>
+            <td><?php echo $row['height_cm']; ?></td>
         </tr>
         <?php endwhile; ?>
         </tbody>

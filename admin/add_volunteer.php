@@ -13,10 +13,23 @@ if(isset($_POST['submit'])){
     $email = $_POST['email'];
     $phone = $_POST['phone'];
     $join_date = $_POST['join_date'];
+    $password = $_POST['password'];
 
+    // 1️⃣ Insert into users table (for login)
     mysqli_query($conn,"
-        INSERT INTO volunteers (name, email, phone, join_date)
-        VALUES ('$name','$email','$phone','$join_date')
+        INSERT INTO users (name, email, password, role)
+        VALUES ('$name','$email','$password','volunteer')
+    ");
+
+    // Get generated user_id
+    $user_id = mysqli_insert_id($conn);
+
+    // 2️⃣ Insert into volunteers table (details)
+    mysqli_query($conn,"
+        INSERT INTO volunteers
+        (volunteer_id, name, email, phone, join_date)
+        VALUES
+        ($user_id,'$name','$email','$phone','$join_date')
     ");
 
     header("Location: manage_volunteers.php");
@@ -38,7 +51,11 @@ include('../includes/navbar.php');
 
         <input type="email" name="email"
                placeholder="Email"
-               class="form-control mb-3">
+               class="form-control mb-3" required>
+
+        <input type="password" name="password"
+               placeholder="Set Password"
+               class="form-control mb-3" required>
 
         <input type="text" name="phone"
                placeholder="Phone"

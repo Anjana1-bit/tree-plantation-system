@@ -64,6 +64,9 @@ if(session_status() == PHP_SESSION_NONE){
                    Maintenance
                 </a>
             </li>
+            <li class="nav-item">
+    <a class="nav-link" href="view_tree_status.php">Status Log</a>
+</li>
 
         <?php endif; ?>
 

@@ -24,7 +24,7 @@ include('../includes/navbar.php');
 <div class="container mt-4">
     <h2>Manage Growth Records</h2>
 
-    <a href="add_growth.php" class="btn btn-success mb-3">+ Add Growth</a>
+   
 
     <table class="table table-bordered table-striped">
         <thead class="table-dark">

@@ -24,8 +24,6 @@ include('../includes/navbar.php');
 <div class="container mt-4">
     <h2>Manage Events</h2>
 
-    <a href="add_event.php" class="btn btn-success mb-3">+ Add Event</a>
-
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
             <tr>
