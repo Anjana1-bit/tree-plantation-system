@@ -18,128 +18,81 @@ if(session_status() == PHP_SESSION_NONE){
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
 
-        <?php if(isset($_SESSION['role'])): ?>
-
-        <!-- ================= ADMIN MENU ================= -->
-        <?php if($_SESSION['role'] == 'admin'): ?>
+        <!-- ================= ADMIN ================= -->
+        <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 'admin'): ?>
 
             <li class="nav-item">
-                <a class="nav-link" 
-                   href="/tree-plantation-system/admin/dashboard.php">
-                   Dashboard
-                </a>
+                <a class="nav-link" href="../admin/dashboard.php">Dashboard</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" 
-                   href="/tree-plantation-system/admin/manage_volunteers.php">
-                   Volunteers
-                </a>
+                <a class="nav-link" href="../admin/manage_volunteers.php">Volunteers</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" 
-                   href="/tree-plantation-system/admin/manage_events.php">
-                   Events
-                </a>
+                <a class="nav-link" href="../admin/manage_events.php">Events</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" 
-                   href="/tree-plantation-system/admin/manage_trees.php">
-                   Trees
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" 
-                   href="/tree-plantation-system/admin/manage_growth.php">
-                   Growth
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" 
-                   href="/tree-plantation-system/admin/manage_maintenance.php">
-                   Maintenance
-                </a>
-            </li>
-            <li class="nav-item">
-    <a class="nav-link" href="view_tree_status.php">Status Log</a>
-</li>
-
-        <?php endif; ?>
-
-
-        <!-- ================= COORDINATOR MENU ================= -->
-        <?php if($_SESSION['role'] == 'coordinator'): ?>
-
-            <li class="nav-item">
-                <a class="nav-link" 
-                   href="/tree-plantation-system/coordinator/dashboard.php">
-                   Dashboard
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" 
-                   href="/tree-plantation-system/coordinator/manage_locations.php">
-                   Locations
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" 
-                   href="/tree-plantation-system/coordinator/manage_events.php">
-                   Events
-                </a>
+                <a class="nav-link" href="../admin/manage_trees.php">Trees</a>
             </li>
 
         <?php endif; ?>
 
 
-        <!-- ================= VOLUNTEER MENU ================= -->
-        <?php if($_SESSION['role'] == 'volunteer'): ?>
+        <!-- ================= COORDINATOR ================= -->
+        <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 'coordinator'): ?>
 
             <li class="nav-item">
-                <a class="nav-link" 
-                   href="/tree-plantation-system/volunteer/dashboard.php">
-                   Dashboard
-                </a>
+                <a class="nav-link" href="../coordinator/dashboard.php">Dashboard</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" 
-                   href="/tree-plantation-system/volunteer/add_tree.php">
-                   Add Tree
-                </a>
+                <a class="nav-link" href="../coordinator/manage_locations.php">Manage Locations</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" 
-                   href="/tree-plantation-system/volunteer/add_growth.php">
-                   Add Growth
-                </a>
+                <a class="nav-link" href="../coordinator/manage_events.php">Manage Events</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" 
-                   href="/tree-plantation-system/volunteer/add_maintenance.php">
-                   Maintenance
-                </a>
+                <a class="nav-link" href="../coordinator/add_event.php">Add Event</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="../coordinator/view_tree_status.php">Tree Status</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="../coordinator/view_logs.php">Logs</a>
+            </li>
+
+        <?php endif; ?>
+
+
+        <!-- ================= VOLUNTEER ================= -->
+        <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 'volunteer'): ?>
+
+            <li class="nav-item">
+                <a class="nav-link" href="../volunteer/dashboard.php">Dashboard</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="../volunteer/add_tree.php">Add Tree</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="../volunteer/view_my_trees.php">My Trees</a>
             </li>
 
         <?php endif; ?>
 
 
         <!-- ================= LOGOUT ================= -->
-        <li class="nav-item">
-            <a class="nav-link text-danger"
-               href="/tree-plantation-system/auth/logout.php">
-               Logout
-            </a>
-        </li>
-
+        <?php if(isset($_SESSION['role'])): ?>
+            <li class="nav-item">
+                <a class="nav-link text-danger" href="../auth/logout.php">Logout</a>
+            </li>
         <?php endif; ?>
 
       </ul>
