@@ -7,7 +7,7 @@ if(session_status() == PHP_SESSION_NONE){
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
 
-    <a class="navbar-brand" href="#">🌱 TPS</a>
+    <a class="navbar-brand" href="#">🌱 TPMS</a>
 
     <button class="navbar-toggler" type="button"
             data-bs-toggle="collapse"
@@ -23,6 +23,11 @@ if(session_status() == PHP_SESSION_NONE){
 
             <li class="nav-item">
                 <a class="nav-link" href="../admin/dashboard.php">Dashboard</a>
+            </li>
+
+            <!-- NEW: Manage Coordinators -->
+            <li class="nav-item">
+                <a class="nav-link" href="../admin/manage_coordinators.php">Coordinators</a>
             </li>
 
             <li class="nav-item">
@@ -55,9 +60,7 @@ if(session_status() == PHP_SESSION_NONE){
                 <a class="nav-link" href="../coordinator/manage_events.php">Manage Events</a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="../coordinator/add_event.php">Add Event</a>
-            </li>
+
 
             <li class="nav-item">
                 <a class="nav-link" href="../coordinator/view_tree_status.php">Tree Status</a>
@@ -71,21 +74,18 @@ if(session_status() == PHP_SESSION_NONE){
 
 
         <!-- ================= VOLUNTEER ================= -->
-        <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 'volunteer'): ?>
-
-            <li class="nav-item">
+      <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 'volunteer'): ?>    
+         <li class="nav-item">
                 <a class="nav-link" href="../volunteer/dashboard.php">Dashboard</a>
             </li>
+       <li class="nav-item">
+<a class="nav-link" href="add_tree.php">Add Tree</a>
+</li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="../volunteer/add_tree.php">Add Tree</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="../volunteer/view_my_trees.php">My Trees</a>
-            </li>
-
-        <?php endif; ?>
+<li class="nav-item">
+<a class="nav-link" href="view_my_trees.php">My Trees</a>
+</li>
+   <?php endif; ?>
 
 
         <!-- ================= LOGOUT ================= -->

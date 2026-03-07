@@ -20,10 +20,19 @@ $result = mysqli_query($conn, $query);
 include('../includes/header.php');
 include('../includes/navbar.php');
 ?>
-
 <div class="container mt-4">
-    <h2>Manage Events</h2>
+<div class="d-flex justify-content-between align-items-center mb-2">
 
+<div>
+<h2>Manage Events</h2>
+
+<p class="text-muted mb-0">
+Add and manage plantation events organized by coordinators.
+</p>
+</div>
+</div>
+
+<hr>
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
             <tr>
@@ -61,5 +70,5 @@ include('../includes/navbar.php');
         </tbody>
     </table>
 </div>
-
+</div>
 <?php include('../includes/footer.php'); ?>

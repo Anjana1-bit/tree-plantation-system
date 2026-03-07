@@ -2,100 +2,134 @@
 include('../auth/session_check.php');
 include('../config/db_connect.php');
 
-// Admin Role Protection
 if(!isset($_SESSION['role']) || $_SESSION['role'] != 'admin'){
-    header("Location: ../auth/login.php");
-    exit();
+header("Location: ../auth/login.php");
+exit();
 }
 
-// ======================
-// Dashboard Statistics
-// ======================
+/* Dashboard Statistics */
 
 // Total Trees
-$resultTrees = mysqli_query($conn, "SELECT COUNT(*) as total FROM trees");
-$totalTrees = $resultTrees ? mysqli_fetch_assoc($resultTrees)['total'] : 0;
+$resultTrees = mysqli_query($conn,"SELECT COUNT(*) as total FROM trees");
+$totalTrees = mysqli_fetch_assoc($resultTrees)['total'];
 
 // Alive Trees
-$resultAlive = mysqli_query($conn, 
-    "SELECT COUNT(*) as total FROM trees WHERE survival_status='Alive'"
-);
-$aliveTrees = $resultAlive ? mysqli_fetch_assoc($resultAlive)['total'] : 0;
+$resultAlive = mysqli_query($conn,"SELECT COUNT(*) as total FROM trees WHERE survival_status='Alive'");
+$aliveTrees = mysqli_fetch_assoc($resultAlive)['total'];
 
 // Dead Trees
-$resultDead = mysqli_query($conn, 
-    "SELECT COUNT(*) as total FROM trees WHERE survival_status='Dead'"
-);
-$deadTrees = $resultDead ? mysqli_fetch_assoc($resultDead)['total'] : 0;
+$resultDead = mysqli_query($conn,"SELECT COUNT(*) as total FROM trees WHERE survival_status='Dead'");
+$deadTrees = mysqli_fetch_assoc($resultDead)['total'];
 
-// Total Events
-$resultEvents = mysqli_query($conn, "SELECT COUNT(*) as total FROM plantation_events");
-$totalEvents = $resultEvents ? mysqli_fetch_assoc($resultEvents)['total'] : 0;
+// Events
+$resultEvents = mysqli_query($conn,"SELECT COUNT(*) as total FROM plantation_events");
+$totalEvents = mysqli_fetch_assoc($resultEvents)['total'];
 
-// Total Volunteers
-$resultVolunteers = mysqli_query($conn, "SELECT COUNT(*) as total FROM volunteers");
-$totalVolunteers = $resultVolunteers ? mysqli_fetch_assoc($resultVolunteers)['total'] : 0;
+// Volunteers
+$resultVolunteers = mysqli_query($conn,"SELECT COUNT(*) as total FROM volunteers");
+$totalVolunteers = mysqli_fetch_assoc($resultVolunteers)['total'];
 
 include('../includes/header.php');
 include('../includes/navbar.php');
 ?>
 
 <div class="container mt-4">
-    <h2 class="mb-4">Admin Overview</h2>
 
-    <div class="row">
+<div class="mb-4">
+<h2>🌿 Admin Dashboard</h2>
+<p class="text-muted">
+Welcome, <?php echo $_SESSION['name'] ?? 'Admin'; ?> 👋
+</p>
+</div>
 
-        <!-- Total Trees -->
-        <div class="col-md-4 mb-3">
-            <div class="card text-center shadow-sm">
-                <div class="card-body">
-                    <h5>Total Trees</h5>
-                    <h3 class="text-success"><?php echo $totalTrees; ?></h3>
-                </div>
-            </div>
-        </div>
+<div class="row g-4">
 
-        <!-- Alive Trees -->
-        <div class="col-md-4 mb-3">
-            <div class="card text-center shadow-sm">
-                <div class="card-body">
-                    <h5>Alive Trees</h5>
-                    <h3 class="text-primary"><?php echo $aliveTrees; ?></h3>
-                </div>
-            </div>
-        </div>
+<!-- Total Trees -->
 
-        <!-- Dead Trees -->
-        <div class="col-md-4 mb-3">
-            <div class="card text-center shadow-sm">
-                <div class="card-body">
-                    <h5>Dead Trees</h5>
-                    <h3 class="text-danger"><?php echo $deadTrees; ?></h3>
-                </div>
-            </div>
-        </div>
+<div class="col-md-4">
+<div class="card shadow-sm">
+<div class="card-body text-center">
 
-        <!-- Total Events -->
-        <div class="col-md-6 mb-3">
-            <div class="card text-center shadow-sm">
-                <div class="card-body">
-                    <h5>Total Events</h5>
-                    <h3 class="text-info"><?php echo $totalEvents; ?></h3>
-                </div>
-            </div>
-        </div>
+<h5>Total Trees</h5>
 
-        <!-- Total Volunteers -->
-        <div class="col-md-6 mb-3">
-            <div class="card text-center shadow-sm">
-                <div class="card-body">
-                    <h5>Total Volunteers</h5>
-                    <h3 class="text-warning"><?php echo $totalVolunteers; ?></h3>
-                </div>
-            </div>
-        </div>
+<h2><?php echo $totalTrees; ?></h2>
 
-    </div>
+<p class="text-muted">All planted trees</p>
+
+</div>
+</div>
+</div>
+
+
+<!-- Alive Trees -->
+
+<div class="col-md-4">
+<div class="card shadow-sm">
+<div class="card-body text-center">
+
+<h5>Alive Trees</h5>
+
+<h2><?php echo $aliveTrees; ?></h2>
+
+<p class="text-muted">Healthy trees</p>
+
+</div>
+</div>
+</div>
+
+
+<!-- Dead Trees -->
+
+<div class="col-md-4">
+<div class="card shadow-sm">
+<div class="card-body text-center">
+
+<h5>Dead Trees</h5>
+
+<h2><?php echo $deadTrees; ?></h2>
+
+<p class="text-muted">Need replacement</p>
+
+</div>
+</div>
+</div>
+
+
+<!-- Events -->
+
+<div class="col-md-6">
+<div class="card shadow-sm">
+<div class="card-body text-center">
+
+<h5>Total Plantation Events</h5>
+
+<h2><?php echo $totalEvents; ?></h2>
+
+<p class="text-muted">Organized plantation drives</p>
+
+</div>
+</div>
+</div>
+
+
+<!-- Volunteers -->
+
+<div class="col-md-6">
+<div class="card shadow-sm">
+<div class="card-body text-center">
+
+<h5>Total Volunteers</h5>
+
+<h2><?php echo $totalVolunteers; ?></h2>
+
+<p class="text-muted">Registered volunteers</p>
+
+</div>
+</div>
+</div>
+
+</div>
+
 </div>
 
 <?php include('../includes/footer.php'); ?>

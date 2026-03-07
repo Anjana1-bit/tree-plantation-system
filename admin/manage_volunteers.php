@@ -12,13 +12,25 @@ $result = mysqli_query($conn, "SELECT * FROM volunteers ORDER BY join_date DESC"
 include('../includes/header.php');
 include('../includes/navbar.php');
 ?>
-
 <div class="container mt-4">
-    <h2>Manage Volunteers</h2>
+<div class="d-flex justify-content-between align-items-center mb-2">
 
-    <a href="add_volunteer.php" class="btn btn-success mb-3">
-        + Add Volunteer
-    </a>
+<div>
+<h2>Manage Volunteers</h2>
+
+<p class="text-muted mb-0">
+Add and manage volunteers who participate in plantation activities.
+</p>
+
+</div>
+
+<a href="add_volunteer.php" class="btn btn-success">
+<i class="fa fa-user-plus"></i> Add Volunteer
+</a>
+
+</div>
+
+<hr>
 
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
@@ -55,5 +67,5 @@ include('../includes/navbar.php');
         </tbody>
     </table>
 </div>
-
+</div>
 <?php include('../includes/footer.php'); ?>

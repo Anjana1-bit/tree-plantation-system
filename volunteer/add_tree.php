@@ -35,7 +35,19 @@ include('../includes/navbar.php');
 ?>
 
 <div class="container mt-4">
-    <h2>Add Tree</h2>
+<div class="d-flex justify-content-between align-items-center mb-2">
+
+<div>
+
+<h2>Add Tree</h2>
+
+<p class="text-muted mb-0">
+Record a newly planted tree under a plantation event.
+</p>
+
+</div>
+</div>
+<hr>
 
     <form method="POST">
 
@@ -46,14 +58,31 @@ include('../includes/navbar.php');
         <input type="date" name="plantation_date"
                class="form-control mb-3" required>
 
-        <select name="event_id" class="form-control mb-3" required>
-            <option value="">Select Event</option>
-            <?php while($row = mysqli_fetch_assoc($events)): ?>
-                <option value="<?php echo $row['event_id']; ?>">
-                    <?php echo $row['event_name']; ?>
-                </option>
-            <?php endwhile; ?>
-        </select>
+        <select name="event_id" class="form-control" required>
+
+<option value="">Select Event</option>
+
+<?php
+$query = "
+SELECT e.event_id, e.event_name, l.location_name
+FROM plantation_events e
+JOIN locations l ON e.location_id = l.location_id
+";
+
+$result = mysqli_query($conn,$query);
+
+while($row = mysqli_fetch_assoc($result)){
+?>
+
+<option value="<?php echo $row['event_id']; ?>">
+
+<?php echo $row['event_name']." - ".$row['location_name']; ?>
+
+</option>
+
+<?php } ?>
+
+</select>
 
         <button type="submit" name="submit"
                 class="btn btn-success">
@@ -62,5 +91,5 @@ include('../includes/navbar.php');
 
     </form>
 </div>
-
+</div>
 <?php include('../includes/footer.php'); ?>

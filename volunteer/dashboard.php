@@ -38,7 +38,12 @@ include('../includes/navbar.php');
 ?>
 
 <div class="container mt-4">
-    <h2 class="mb-4">Volunteer Dashboard</h2>
+    <div class="mb-4">
+<h2>🌿 Volunteer Dashboard</h2>
+<p class="text-muted">
+Welcome, <?php echo $_SESSION['name'] ?? 'Volunteer'; ?> 👋
+</p>
+</div>
 
     <div class="row">
 

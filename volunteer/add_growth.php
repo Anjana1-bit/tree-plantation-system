@@ -46,8 +46,20 @@ include('../includes/navbar.php');
 ?>
 
 <div class="container mt-4">
-    <h2>Add Growth Record</h2>
+<div class="d-flex justify-content-between align-items-center mb-2">
 
+<div>
+
+
+<h2>Add Growth</h2>
+
+<p class="text-muted mb-0">
+Record growth updates such as height or condition of planted trees.
+</p>
+
+</div>
+</div>
+<hr>
     <form method="POST">
 
         <select name="tree_id" class="form-control mb-3" required>
@@ -73,5 +85,5 @@ include('../includes/navbar.php');
 
     </form>
 </div>
-
+</div>
 <?php include('../includes/footer.php'); ?>
