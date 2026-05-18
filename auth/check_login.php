@@ -2,49 +2,70 @@
 session_start();
 include('../config/db_connect.php');
 
-if($_SERVER['REQUEST_METHOD'] == 'POST'){
+// Avoid undefined errors
+$email = $_POST['email'] ?? '';
+$password = $_POST['password'] ?? '';
+$role = $_POST['role'] ?? '';
 
-$email = $_POST['email'];
-$password = $_POST['password'];
+/* =========================
+   ADMIN / COORDINATOR LOGIN
+========================= */
 
-$query = "SELECT * FROM users WHERE email='$email'";
-$result = mysqli_query($conn,$query);
+if($role == 'admin' || $role == 'coordinator'){
 
-if(mysqli_num_rows($result) == 1){
+    $query = "SELECT * FROM users 
+              WHERE email='$email' 
+              AND password='$password' 
+              AND role='$role'";
 
-$user = mysqli_fetch_assoc($result);
+    $result = mysqli_query($conn, $query);
 
-if($password == $user['password']){
+    if($result && mysqli_num_rows($result) > 0){
 
-$_SESSION['user_id'] = $user['user_id'];
-$_SESSION['role'] = $user['role'];
-$_SESSION['name'] = $user['name'];
+        $row = mysqli_fetch_assoc($result);
 
-if($user['role'] == 'admin'){
-header("Location: ../admin/dashboard.php");
+        $_SESSION['user_id'] = $row['user_id'];
+        $_SESSION['name'] = $row['name'];
+        $_SESSION['role'] = $row['role'];
+
+        if($role == 'admin'){
+            header("Location: ../admin/dashboard.php");
+        } else {
+            header("Location: ../coordinator/dashboard.php");
+        }
+
+        exit();
+    }
 }
 
-elseif($user['role'] == 'coordinator'){
-header("Location: ../coordinator/dashboard.php");
+/* =========================
+   VOLUNTEER LOGIN (NO PASSWORD)
+========================= */
+
+if($role == 'volunteer'){
+
+    $query = "SELECT * FROM volunteers WHERE email='$email'";
+    $result = mysqli_query($conn, $query);
+
+    if($result && mysqli_num_rows($result) > 0){
+
+        $row = mysqli_fetch_assoc($result);
+
+        $_SESSION['user_id'] = $row['volunteer_id']; // unified session
+        $_SESSION['name'] = $row['name'];
+        $_SESSION['role'] = 'volunteer';
+
+        header("Location: ../volunteer/dashboard.php");
+        exit();
+    }
 }
 
-elseif($user['role'] == 'volunteer'){
-header("Location: ../volunteer/dashboard.php");
-}
+/* =========================
+   INVALID LOGIN
+========================= */
 
-exit();
-
-}else{
-
-echo "Wrong password";
-
-}
-
-}else{
-
-echo "User not found";
-
-}
-
-}
+echo "<script>
+alert('Invalid credentials or wrong role');
+window.location='login.php';
+</script>";
 ?>

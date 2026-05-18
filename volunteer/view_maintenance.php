@@ -33,7 +33,7 @@ View maintenance activities performed for this tree.
 
 <thead class="table-dark">
 <tr>
-<th>ID</th>
+
 <th>Activity</th>
 <th>Date</th>
 <th>Remarks</th>
@@ -46,7 +46,7 @@ View maintenance activities performed for this tree.
 
 <tr>
 
-<td><?php echo $row['maintenance_id']; ?></td>
+
 
 <td><?php echo $row['activity_type']; ?></td>
 

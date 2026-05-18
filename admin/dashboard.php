@@ -51,10 +51,7 @@ Welcome, <?php echo $_SESSION['name'] ?? 'Admin'; ?> 👋
 <div class="card-body text-center">
 
 <h5>Total Trees</h5>
-
 <h2><?php echo $totalTrees; ?></h2>
-
-<p class="text-muted">All planted trees</p>
 
 </div>
 </div>
@@ -68,10 +65,7 @@ Welcome, <?php echo $_SESSION['name'] ?? 'Admin'; ?> 👋
 <div class="card-body text-center">
 
 <h5>Alive Trees</h5>
-
 <h2><?php echo $aliveTrees; ?></h2>
-
-<p class="text-muted">Healthy trees</p>
 
 </div>
 </div>
@@ -85,10 +79,7 @@ Welcome, <?php echo $_SESSION['name'] ?? 'Admin'; ?> 👋
 <div class="card-body text-center">
 
 <h5>Dead Trees</h5>
-
 <h2><?php echo $deadTrees; ?></h2>
-
-<p class="text-muted">Need replacement</p>
 
 </div>
 </div>
@@ -102,10 +93,7 @@ Welcome, <?php echo $_SESSION['name'] ?? 'Admin'; ?> 👋
 <div class="card-body text-center">
 
 <h5>Total Plantation Events</h5>
-
 <h2><?php echo $totalEvents; ?></h2>
-
-<p class="text-muted">Organized plantation drives</p>
 
 </div>
 </div>
@@ -119,10 +107,7 @@ Welcome, <?php echo $_SESSION['name'] ?? 'Admin'; ?> 👋
 <div class="card-body text-center">
 
 <h5>Total Volunteers</h5>
-
 <h2><?php echo $totalVolunteers; ?></h2>
-
-<p class="text-muted">Registered volunteers</p>
 
 </div>
 </div>

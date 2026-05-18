@@ -13,6 +13,16 @@ $name = $_POST['name'];
 $email = $_POST['email'];
 $phone = $_POST['phone'];
 $join_date = $_POST['join_date'];
+$password = $_POST['password'];
+
+/* Insert login data into users table */
+
+mysqli_query($conn,"
+INSERT INTO users(name,email,password,role)
+VALUES('$name','$email','$password','volunteer')
+");
+
+/* Insert volunteer details */
 
 mysqli_query($conn,"
 INSERT INTO volunteers(name,email,phone,join_date)
@@ -20,6 +30,8 @@ VALUES('$name','$email','$phone','$join_date')
 ");
 
 header("Location: manage_volunteers.php");
+exit();
+
 }
 
 include('../includes/header.php');
@@ -51,6 +63,11 @@ Create a volunteer who will participate in plantation activities.
 <div class="mb-3">
 <label class="form-label">Phone</label>
 <input type="text" name="phone" class="form-control" required>
+</div>
+
+<div class="mb-3">
+<label class="form-label">Password</label>
+<input type="password" name="password" class="form-control" required>
 </div>
 
 <div class="mb-3">
